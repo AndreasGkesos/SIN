@@ -29,7 +29,7 @@ namespace DB
             using var db = new LiteDatabase(connectionString);
 
             var codeCollection = db.GetCollection<Sin>();
-            var sin = new Sin { Code = code, PlanNumber = planNumber };
+            var sin = new Sin { Code = code, PlanNumber = planNumber, Created = DateTime.Now };
             codeCollection.Insert(sin);
         }
 
@@ -39,7 +39,7 @@ namespace DB
             using var db = new LiteDatabase(connectionString);
 
             var codeCollection = db.GetCollection<Sin>();
-            var sins = codeCollection.FindAll().OrderBy(x => x.PlanNumber).ToList();
+            var sins = codeCollection.FindAll().OrderBy(x => x.PlanNumber).ThenByDescending(x => x.Created).ToList();
 
             return sins;
         }

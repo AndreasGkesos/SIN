@@ -5,5 +5,6 @@
         public Guid Id { get; set; }
         public string Code { get; set; }
         public string PlanNumber { get; set; }
+        public DateTime Created { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace SIN
+﻿using System.Runtime.Versioning;
+
+namespace SIN
 {
     partial class Screen
     {
@@ -28,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Screen));
             tabs = new TabControl();
             tabGenerate = new TabPage();
             generateButton = new Button();
@@ -54,10 +57,11 @@
             tabs.SelectedIndex = 0;
             tabs.Size = new Size(447, 452);
             tabs.TabIndex = 0;
+            tabs.Selected += Tabs_Selected;
             // 
             // tabGenerate
             // 
-            tabGenerate.BackColor = Color.OldLace;
+            tabGenerate.BackColor = Color.GhostWhite;
             tabGenerate.BackgroundImageLayout = ImageLayout.Center;
             tabGenerate.Controls.Add(generateButton);
             tabGenerate.Controls.Add(sinLabel);
@@ -73,6 +77,7 @@
             // 
             // generateButton
             // 
+            generateButton.Enabled = false;
             generateButton.Location = new Point(178, 145);
             generateButton.Name = "generateButton";
             generateButton.Size = new Size(114, 23);
@@ -96,6 +101,7 @@
             sinTextBox.Name = "sinTextBox";
             sinTextBox.Size = new Size(114, 23);
             sinTextBox.TabIndex = 2;
+            sinTextBox.Click += SinTextBox_Click;
             // 
             // planLabel
             // 
@@ -113,9 +119,11 @@
             planTextbox.PlaceholderText = "Add plan number";
             planTextbox.Size = new Size(114, 23);
             planTextbox.TabIndex = 0;
+            planTextbox.TextChanged += PlanTextbox_TextChanged;
             // 
             // tabHistory
             // 
+            tabHistory.BackColor = Color.GhostWhite;
             tabHistory.Controls.Add(removeLabel);
             tabHistory.Controls.Add(RemoveTextBox);
             tabHistory.Controls.Add(removeButton);
@@ -126,8 +134,6 @@
             tabHistory.Size = new Size(439, 424);
             tabHistory.TabIndex = 1;
             tabHistory.Text = "History";
-            tabHistory.UseVisualStyleBackColor = true;
-            tabHistory.Click += HistoryTab_Click;
             // 
             // removeLabel
             // 
@@ -157,15 +163,15 @@
             // 
             // listBox
             // 
+            listBox.DrawMode = DrawMode.OwnerDrawFixed;
             listBox.FormattingEnabled = true;
             listBox.ItemHeight = 25;
             listBox.Location = new Point(0, 28);
             listBox.Name = "listBox";
-            listBox.Size = new Size(245, 394);
+            listBox.ScrollAlwaysVisible = true;
+            listBox.Size = new Size(245, 379);
             listBox.TabIndex = 0;
             listBox.DrawItem += DrawItem;
-            listBox.DrawMode = DrawMode.OwnerDrawFixed;
-            listBox.ScrollAlwaysVisible = true;
             listBox.SelectedIndexChanged += ListBox_SelectedIndexChanged;
             // 
             // Screen
@@ -174,6 +180,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(445, 450);
             Controls.Add(tabs);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Screen";
             Text = "SIN";
             tabs.ResumeLayout(false);
