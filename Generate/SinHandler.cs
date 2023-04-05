@@ -55,20 +55,28 @@ namespace SinHandler
         private bool IsValid(string code)
         {
             var array = Regex.Split(code, string.Empty).Where(x => x.Length > 0).ToList();
-            var result = new List<string>();
-           
-            for (int i = 0; i < array.Count; i = i + 2)
+            var result = new List<int>();
+
+            var length = array.Count;
+            for (int i = 0; i < length; i++)
             {
-                var r = (int.Parse(array[i]) * 2).ToString();
-                if (r.Length == 1) result.Add(r);
-                else result.AddRange(Regex.Split(r, string.Empty).Where(x => x.Length > 0).ToList());
+                var value = int.Parse(array[i]);
+                if ((i + 1) % 2 == 0)
+                {
+                    var r = (value * 2).ToString();
+                    if (r.Length > 1) result.AddRange(Regex.Split(r, string.Empty).Where(x => x.Length > 0).Select(x => int.Parse(x)).ToList());
+                    else result.Add(int.Parse(r));
+                }
+                else
+                {
+                    result.Add(value);
+                }
             }
 
             var count = 0;
             foreach (var c in result) {
-                count = count + int.Parse(c);
+                count = count + c;
             }
-
 
             return count % 10 == 0;
         }
