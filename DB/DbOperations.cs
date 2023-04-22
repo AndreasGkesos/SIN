@@ -23,13 +23,13 @@ namespace DB
             return sins;
         }
 
-        public void AddSinPerPlan(string planNumber, string code)
+        public void AddSinPerPlan(string planNumber, string code, string certificate)
         {
             var connectionString = _configuration.GetConnectionString("LiteDB");
             using var db = new LiteDatabase(connectionString);
 
             var codeCollection = db.GetCollection<Sin>();
-            var sin = new Sin { Code = code, PlanNumber = planNumber, Created = DateTime.Now };
+            var sin = new Sin { Code = code, PlanNumber = planNumber, Certificate = certificate, Created = DateTime.Now };
             codeCollection.Insert(sin);
         }
 

@@ -6,7 +6,7 @@ namespace DB
     {
         List<Sin> GetAllSins();
         List<Sin> GetSinsPerPlan(string planNumber);
-        void AddSinPerPlan(string planNumber, string code);
+        void AddSinPerPlan(string planNumber, string code, string certificate);
         void RemoveSinsPerPlan(string planNumber);
     }
 }

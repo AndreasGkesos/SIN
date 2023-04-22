@@ -33,6 +33,8 @@ namespace SIN
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Screen));
             tabs = new TabControl();
             tabGenerate = new TabPage();
+            certificateLabel = new Label();
+            certificateTextBox = new TextBox();
             generateButton = new Button();
             sinLabel = new Label();
             sinTextBox = new TextBox();
@@ -55,7 +57,7 @@ namespace SIN
             tabs.Location = new Point(0, 0);
             tabs.Name = "tabs";
             tabs.SelectedIndex = 0;
-            tabs.Size = new Size(447, 452);
+            tabs.Size = new Size(481, 452);
             tabs.TabIndex = 0;
             tabs.Selected += Tabs_Selected;
             // 
@@ -63,6 +65,8 @@ namespace SIN
             // 
             tabGenerate.BackColor = Color.GhostWhite;
             tabGenerate.BackgroundImageLayout = ImageLayout.Center;
+            tabGenerate.Controls.Add(certificateLabel);
+            tabGenerate.Controls.Add(certificateTextBox);
             tabGenerate.Controls.Add(generateButton);
             tabGenerate.Controls.Add(sinLabel);
             tabGenerate.Controls.Add(sinTextBox);
@@ -71,19 +75,36 @@ namespace SIN
             tabGenerate.Location = new Point(4, 24);
             tabGenerate.Name = "tabGenerate";
             tabGenerate.Padding = new Padding(3);
-            tabGenerate.Size = new Size(439, 424);
+            tabGenerate.Size = new Size(473, 424);
             tabGenerate.TabIndex = 0;
             tabGenerate.Text = "Generate";
+            // 
+            // certificateLabel
+            // 
+            certificateLabel.AutoSize = true;
+            certificateLabel.Location = new Point(111, 206);
+            certificateLabel.Name = "certificateLabel";
+            certificateLabel.Size = new Size(61, 15);
+            certificateLabel.TabIndex = 6;
+            certificateLabel.Text = "Certificate";
+            // 
+            // certificateTextBox
+            // 
+            certificateTextBox.Location = new Point(178, 203);
+            certificateTextBox.Name = "certificateTextBox";
+            certificateTextBox.Size = new Size(114, 23);
+            certificateTextBox.TabIndex = 5;
+            certificateTextBox.Click += certificateTextBox_Click;
             // 
             // generateButton
             // 
             generateButton.Enabled = false;
-            generateButton.Location = new Point(178, 145);
+            generateButton.Location = new Point(178, 136);
             generateButton.Name = "generateButton";
-            generateButton.Size = new Size(114, 23);
+            generateButton.Size = new Size(114, 32);
             generateButton.TabIndex = 4;
             generateButton.Text = "Generate";
-            generateButton.UseVisualStyleBackColor = true;
+            generateButton.UseVisualStyleBackColor = false;
             generateButton.Click += GenerateButton_Click;
             // 
             // sinLabel
@@ -131,14 +152,14 @@ namespace SIN
             tabHistory.Location = new Point(4, 24);
             tabHistory.Name = "tabHistory";
             tabHistory.Padding = new Padding(3);
-            tabHistory.Size = new Size(439, 424);
+            tabHistory.Size = new Size(473, 424);
             tabHistory.TabIndex = 1;
             tabHistory.Text = "History";
             // 
             // removeLabel
             // 
             removeLabel.AutoSize = true;
-            removeLabel.Location = new Point(297, 290);
+            removeLabel.Location = new Point(362, 301);
             removeLabel.Name = "removeLabel";
             removeLabel.Size = new Size(102, 15);
             removeLabel.TabIndex = 3;
@@ -146,14 +167,14 @@ namespace SIN
             // 
             // RemoveTextBox
             // 
-            RemoveTextBox.Location = new Point(297, 319);
+            RemoveTextBox.Location = new Point(364, 319);
             RemoveTextBox.Name = "RemoveTextBox";
             RemoveTextBox.Size = new Size(100, 23);
             RemoveTextBox.TabIndex = 2;
             // 
             // removeButton
             // 
-            removeButton.Location = new Point(297, 357);
+            removeButton.Location = new Point(362, 359);
             removeButton.Name = "removeButton";
             removeButton.Size = new Size(100, 23);
             removeButton.TabIndex = 1;
@@ -166,10 +187,10 @@ namespace SIN
             listBox.DrawMode = DrawMode.OwnerDrawFixed;
             listBox.FormattingEnabled = true;
             listBox.ItemHeight = 25;
-            listBox.Location = new Point(0, 28);
+            listBox.Location = new Point(0, 19);
             listBox.Name = "listBox";
             listBox.ScrollAlwaysVisible = true;
-            listBox.Size = new Size(245, 379);
+            listBox.Size = new Size(356, 379);
             listBox.TabIndex = 0;
             listBox.DrawItem += DrawItem;
             listBox.SelectedIndexChanged += ListBox_SelectedIndexChanged;
@@ -178,7 +199,7 @@ namespace SIN
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(445, 450);
+            ClientSize = new Size(480, 450);
             Controls.Add(tabs);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -207,5 +228,7 @@ namespace SIN
         private ListBox listBox;
         private TextBox RemoveTextBox;
         private Label removeLabel;
+        private Label certificateLabel;
+        private TextBox certificateTextBox;
     }
 }

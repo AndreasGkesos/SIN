@@ -15,12 +15,14 @@ namespace SIN
         private void GenerateButton_Click(object sender, EventArgs e)
         {
             var sin = _handler.Generate(planTextbox.Text);
-            sinTextBox.Text = sin;
+            sinTextBox.Text = sin.Item1;
+            certificateTextBox.Text = sin.Item2;
         }
 
         private void RemoveButton_Click(object sender, EventArgs e)
         {
             _handler.RemovePerPlan(RemoveTextBox.Text);
+            RemoveTextBox.Text = string.Empty;
             GetHistory();
         }
 
@@ -51,7 +53,7 @@ namespace SIN
 
                 listBox.Items.Clear();
                 listBox.Items.Add(string.Empty);
-                foreach (var sin in sinsWithSeperator.Select(x => string.Join("\t", x.Code, x.PlanNumber)).ToList())
+                foreach (var sin in sinsWithSeperator.Select(x => string.Join("\t", x.Code, x.Certificate, x.PlanNumber)).ToList())
                 {
                     listBox.Items.Add(sin);
                 }
@@ -70,19 +72,24 @@ namespace SIN
             fontStyle = FontStyle.Bold;
             if (listBox.Items.Count > 0 && e.Index > 0)
             {
-                e.Graphics.DrawString(listBox.Items[e.Index].ToString(), new Font("Arial", 14, fontStyle), Brushes.Black, e.Bounds);
+                e.Graphics.DrawString(listBox.Items[e.Index].ToString(), new Font("Arial", 12, fontStyle), Brushes.Black, e.Bounds);
             }
             e.DrawFocusRectangle();
         }
 
         private void SinTextBox_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(sinTextBox.Text);
+            if (!string.IsNullOrWhiteSpace(sinTextBox.Text)) Clipboard.SetText(sinTextBox.Text);
         }
 
         private void PlanTextbox_TextChanged(object sender, EventArgs e)
         {
             generateButton.Enabled = planTextbox.Text.Length == 3;
+        }
+
+        private void certificateTextBox_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(certificateTextBox.Text)) Clipboard.SetText(certificateTextBox.Text);
         }
     }
 }

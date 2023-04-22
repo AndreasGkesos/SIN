@@ -9,7 +9,8 @@ namespace SinHandler
     public class SinHandler : ISinHandler
     {
         private readonly string _validChars = "1234567890";
-        private readonly int _codeLength = 9;
+        private readonly int _sinCodeLength = 9;
+        private readonly int _certificateCodeLength = 6;
 
         public IDbOperations _dbOperations { get; set; }
         public SinHandler(IDbOperations dbOperations)
@@ -17,28 +18,31 @@ namespace SinHandler
             _dbOperations = dbOperations;
         }
 
-        public string Generate(string planNumber)
+        public (string, string) Generate(string planNumber)
         {
             var sins = _dbOperations.GetSinsPerPlan(planNumber);
 
-            var code = GetCode();
+            var code = GetCode(_sinCodeLength);
 
             while (!IsValid(code) || sins.Any(x => x.Code == code))
             {
-                code = GetCode();
+                code = GetCode(_sinCodeLength);
             }
 
-        _dbOperations.AddSinPerPlan(planNumber, code);
+            var cert = GetCode(_certificateCodeLength);
+            var certificate = planNumber + cert;
 
-            return code;
+            _dbOperations.AddSinPerPlan(planNumber, code, certificate);
+
+            return (code, certificate);
         }
 
-        private string GetCode()
+        private string GetCode(int length)
         {
             var sb = new StringBuilder();
             using var rng = RandomNumberGenerator.Create();
 
-            while (sb.Length < _codeLength)
+            while (sb.Length < length)
             {
                 var oneByte = new byte[1];
                 rng.GetBytes(oneByte);
